@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
 var db_config = require(__dirname + '/config/database.js');
+var db_config_readonly = require(__dirname + '/config/database_readonly.js');
 var conn = db_config.init();
+var conn_readonly = db_config_readonly.init();
 var bodyParser = require('body-parser');
 
 db_config.connect(conn);
@@ -18,7 +20,7 @@ app.get('/', function (req, res) {
 
 app.get('/list', function (req, res) {
     var sql = 'SELECT * FROM BOARD';    
-    conn.query(sql, function (err, rows, fields) {
+    conn_readonly.query(sql, function (err, rows, fields) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else res.render('list.ejs', {list : rows});
     });
