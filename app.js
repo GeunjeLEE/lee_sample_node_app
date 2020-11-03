@@ -1,3 +1,5 @@
+var morgan = require('morgan')
+var winston = require(__dirname + '/config/winston.js')
 var express = require('express');
 var app = express();
 var db_config = require(__dirname + '/config/database.js');
@@ -13,13 +15,14 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
+app.use(morgan('combined', {stream: winston.stream}));
 
 app.get('/', function (req, res) {
     res.render('index.ejs');
 });
 
 app.get('/list', function (req, res) {
-    var sql = 'SELECT * FROM BOARD';    
+    var sql = 'SELECT * FROM BOARD';
     conn_readonly.query(sql, function (err, rows, fields) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else res.render('list.ejs', {list : rows});
@@ -43,4 +46,4 @@ app.post('/writeAf', function (req, res) {
     });
 });
 
-app.listen(3000, () => console.log('Server is running on port 3000...'));
+app.listen(3000, () => winston.info('Server is running on port 3000...'));
