@@ -27,6 +27,7 @@ app.get('/list', function (req, res) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else res.render('list.ejs', {list : rows});
     });
+    conn_readonly.release();
 });
 
 app.get('/write', function (req, res) {
@@ -44,6 +45,7 @@ app.post('/writeAf', function (req, res) {
         if(err) console.log('query is not excuted. insert fail...\n' + err);
         else res.redirect('/list');
     });
+    conn.release();
 });
 
 app.listen(3000, () => winston.info('Server is running on port 3000...'));
