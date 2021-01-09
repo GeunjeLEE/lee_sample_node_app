@@ -28,6 +28,5 @@ jobs:
     executor: node
     steps:
       - checkout
-      - run: ls -al
-      - run: build_node_app
+      - build_node_app
       - run: docker images
