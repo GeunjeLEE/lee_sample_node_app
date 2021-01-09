@@ -7,18 +7,9 @@ executors:
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
  
-jobs:
-  build:
-    executor: node
-    steps:
-      - checkout
-      - run: npm install --prefix ./src
-      - run: ls -al
-     
 workflows:
   build:
     jobs:
-      - build
       - aws-ecr/build_and_push_image:
           requires:
             - build
