@@ -5,3 +5,5 @@ COPY ./src /sample
 WORKDIR /sample
 
 RUN npm install forever -g
+
+EXPOSE 3000
