@@ -10,10 +10,9 @@ orbs:
 jobs:
   build:
     executor: node
-    working_directory: ./src
     steps:
       - checkout
-      - run: npm install
+      - run: npm install --prefix ./src
       - run: ls -al
      
 workflows:
