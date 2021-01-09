@@ -4,6 +4,8 @@ COPY ./src /sample
 
 WORKDIR /sample
 
-RUN npm install forever -g
+RUN npm install
+
+CMD ["npm","start"]
 
 EXPOSE 3000
