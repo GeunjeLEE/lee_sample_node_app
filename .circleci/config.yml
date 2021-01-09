@@ -11,7 +11,10 @@ commands:
   build_node_app:
     description: "Build sample node.js app"
     steps:
-      - run: npm install & npm install forever -g
+      - run:
+          command: |
+            sudo npm install 
+            sudo npm install forever -g
   image_push:
     description: "push image to ecr"
     steps:
