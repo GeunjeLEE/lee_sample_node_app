@@ -6,7 +6,6 @@ executors:
       
 orbs:
   aws-cli: circleci/aws-cli@1.3.2
-  aws-ecr: circleci/aws-ecr@4.0.1
  
 commands:
   build_node_app:
@@ -15,7 +14,8 @@ commands:
       - run:
           command: |
             sudo npm install 
-
+            sudo npm install forever -g
+      
 jobs:
   build:
     executor: node
@@ -25,6 +25,7 @@ jobs:
       - build_node_app
       - image_push
       - run: ls -al && docker images
+
      
 workflows:
    version: 2
