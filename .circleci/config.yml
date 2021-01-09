@@ -26,15 +26,3 @@ jobs:
       - image_push
       - run: ls -al && docker images
 
-     
-workflows:
-   version: 2
-     jobs:
-       - build
-       - aws-ecr/build_and_push_image:
-           account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}
-           .amazonaws.com"
-           repo: "sample-ecr"
-           region: ${AWS_DEFAULT_REGION}
-           tag: "latest"
-
