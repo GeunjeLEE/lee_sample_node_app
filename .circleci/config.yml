@@ -10,7 +10,7 @@ orbs:
 jobs:
   build:
     executor: node
-    working_directory: ~/src
+    working_directory: ./src
     steps:
       - checkout
       - run: npm install
