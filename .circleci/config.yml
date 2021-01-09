@@ -31,5 +31,6 @@ jobs:
     executor: node
     steps:
       - checkout
+      - setup_remote_docker
       - build_node_app
-      - run: docker images
+      - run: ls -al && docker images
