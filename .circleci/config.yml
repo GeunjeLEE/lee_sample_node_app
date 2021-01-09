@@ -8,21 +8,12 @@ orbs:
   aws-cli: circleci/aws-cli@1.3.2
   aws-ecr: circleci/aws-ecr@0.0.2
  
-commands:
-  build_node_app:
-    description: "Build sample node.js app"
-    steps:
-      - run:
-          command: |
-            sudo npm install 
-      
 jobs:
   build:
     executor: node
     steps:
       - checkout
       - setup_remote_docker
-      - build_node_app
       - run: ls -al && docker images
      
 workflows:
