@@ -1,7 +1,7 @@
 version: 2.1
 
 executors:
-  node:
+  default:
     docker:
       - image: circleci/node:12.16.1
 
@@ -10,7 +10,7 @@ orbs:
 
 jobs:
   checkout:
-    executor: node
+    executor: default
     steps:
       - checkout
 
