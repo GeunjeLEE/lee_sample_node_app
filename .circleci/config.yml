@@ -1,10 +1,12 @@
 version: 2.1
-      
+
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
 
 jobs:
   image-build-and-push:
+    executor:
+      name: aws-ecr/default
     steps:
       - checkout
       - aws-ecr/build_and_push_image:
