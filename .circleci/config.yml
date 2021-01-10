@@ -6,7 +6,6 @@ executors:
       - image: circleci/node:12.16.1
 
 orbs:
-  aws-cli: circleci/aws-cli@0.1.4
   aws-ecr: circleci/aws-ecr@0.0.2
   aws-ecs: circleci/aws-ecs@0.0.10
 
@@ -15,19 +14,7 @@ jobs:
     executor: default
     steps:
       - checkout
-  update-ecs-service:
-    docker:
-      - image: 'circleci/python:3.7.1'
-    steps:
-      - aws-cli/install
-      - aws-cli/configure:
-          aws-access-key-id: $AWS_ACCESS_KEY_ID
-          aws-region: ${AWS_DEFAULT_REGION}
-      - aws-ecs/update-service:
-          family: ${AWS_ECS_FAMILY_NAME}
-          cluster-name: ${AWS_ECS_CLUSTER_NAME}
-          container-image-name-updates: "container=node,image-and-tag=${AWS_IMAGE_URL}"
-          
+
 workflows:
   build_and_deploy:
     jobs:
@@ -39,6 +26,11 @@ workflows:
           repo: "sample-ecr"
           region: ${AWS_DEFAULT_REGION}
           tag: "latest"
-      - update-ecs-service:
+      - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build_and_push_image
+          aws-region: ${AWS_DEFAULT_REGION}
+          family: "${AWS_ECS_FAMILY_NAME}" # task definition name
+          cluster-name: "${AWS_ECS_CLUSTER_NAME}" # cluster name
+          service-name: "${AWS_ECS_SERVICE_NAME}" # service name
+          container-image-name-updates: "container=node,image-and-tag=${AWS_IMAGE_URL}" # container name & image url
