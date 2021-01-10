@@ -7,6 +7,7 @@ executors:
 
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
+  aws-ecs: circleci/aws-ecs@0.0.10
 
 jobs:
   checkout:
