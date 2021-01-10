@@ -3,19 +3,14 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
 
-jobs:
-  image-build-and-push:
-    executor:
-      name: aws-ecr/default
-    steps:
+workflows:
+  build:
+    jobs:
       - checkout
       - aws-ecr/build_and_push_image:
+          requires:
+            - checkout
           account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
           repo: "sample-ecr"
           region: ${AWS_DEFAULT_REGION}
           tag: "latest"
-
-workflows:
-  build:
-    jobs:
-      - image-build-and-push
