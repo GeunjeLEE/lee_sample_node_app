@@ -17,6 +17,7 @@ jobs:
 workflows:
   build:
     jobs:
+      - checkout
       - aws-ecr/build_and_push_image:
           requires:
             - checkout
