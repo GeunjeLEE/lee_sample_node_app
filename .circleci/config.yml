@@ -5,7 +5,7 @@ orbs:
 
 jobs:
   checkout:
-    executor: circleci/node:12.16.1
+    executor: aws-ecr
     steps:
       - checkout
 
