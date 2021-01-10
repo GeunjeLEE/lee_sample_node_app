@@ -1,11 +1,16 @@
 version: 2.1
 
+executors:
+  node:
+    docker:
+      - image: circleci/node:12.16.1
+
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
 
 jobs:
   checkout:
-    executor: aws-ecr
+    executor: node
     steps:
       - checkout
 
