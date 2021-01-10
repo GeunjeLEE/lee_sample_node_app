@@ -6,12 +6,19 @@ executors:
       
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
- 
-workflows:
+
+jobs:
   build:
-    jobs:
+    executor: node
+    steps:
+      - checkout
+      - run: ls -al
       - aws-ecr/build_and_push_image:
           account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
           repo: "sample-ecr"
           region: ${AWS_DEFAULT_REGION}
           tag: "latest"
+workflows:
+  build:
+    jobs:
+      - build
