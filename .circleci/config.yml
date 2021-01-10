@@ -25,3 +25,10 @@ workflows:
           repo: "sample-ecr"
           region: ${AWS_DEFAULT_REGION}
           tag: "latest"
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build_and_push_image
+          aws-region: ${AWS_DEFAULT_REGION}
+          family: "${AWS_ECS_FAMILY_NAME}" # task definition name
+          cluster-name: "${AWS_ECS_CLUSTER_NAME}" # cluster name
+          container-image-name-updates: "container=node,image-and-tag=${AWS_IMAGE_URL}" # container name & image url
