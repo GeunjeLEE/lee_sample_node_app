@@ -3,6 +3,11 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
 
+jobs:
+  checkout:
+    steps:
+      - checkout
+
 workflows:
   build:
     jobs:
